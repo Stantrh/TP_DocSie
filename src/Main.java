@@ -1,5 +1,11 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+
+
+        // Faire un menu pour traiter les différents cas
+        // Factoriser chaque question dans la méthode
+
+        
     }
 }
