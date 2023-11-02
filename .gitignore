@@ -1,5 +1,7 @@
 out/
 .idea/
-.src/.class
-.src/SQL/.class
+*.class
+src/SQL/*.class
+src/*.class
+
 
