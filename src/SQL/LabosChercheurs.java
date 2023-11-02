@@ -17,7 +17,7 @@ public class LabosChercheurs extends Base {
      */
     public LabosChercheurs(Connection c){
         super(c);
-        this.listeChercheurs = "SELECT nomchercheur, prenomchercheur, email FROM Chercheur ORDER BY email ASC";
+        this.listeChercheurs = "SELECT nomchercheur, prenomchercheur, email FROM Chercheur ORDER BY nomchercheur ASC";
         this.laboratoires = "select LABORATOIRE.NOMLABO, LABORATOIRE.SIGLELABO, LABORATOIRE.ADRESSELABO from LABORATOIRE " +
                 "inner join TRAVAILLER on LABORATOIRE.NOMLABO = TRAVAILLER.NOMLABO " +
                 "where TRAVAILLER.EMAIL = ?";
