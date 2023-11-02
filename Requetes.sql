@@ -429,3 +429,4 @@ VALUES ('lamport@microsoft.com', 'A User-centric Framework for Accessing Biologi
 INSERT INTO NOTER (Email, Titre, Note)
 VALUES ('lamport@microsoft.com', 'Automata and Logics for Words and Trees over an Infinite Alphabet', 4);
 
+commit;
