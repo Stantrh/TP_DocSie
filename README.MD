@@ -5,3 +5,8 @@ Concernant l'architecture de mon projet, j'ai décidé de :
 
 
 Doc à regarder, Scanner
+
+Préférable de lancer via une console avec cet enchaînement de commande :
+-
+- javac main.java
+- java -cp ../ojdbc11.jar;.; Main

@@ -6,8 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ChercheurAnnoterArticles extends Base{
+    /**
+     * Correspond à la requête préparée qui sera utilisée
+     */
     private String requete;
 
+    /**
+     * Construit un objet ChercheurAnnoterArticles à partir d'une connection et instancie son attribut requete
+     * @param c
+     */
     public ChercheurAnnoterArticles(Connection c){
         super(c);
         this.requete = "SELECT Chercheur.EMAIL, Chercheur.NOMCHERCHEUR, Chercheur.PRENOMCHERCHEUR, COUNT(Annoter.TITRE) AS NombreArticlesAnnotes\n" +

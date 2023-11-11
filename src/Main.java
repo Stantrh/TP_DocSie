@@ -1,7 +1,4 @@
-import SQL.CalculMoyenne;
-import SQL.ChercheurAnnoterArticles;
-import SQL.LabosChercheurs;
-import SQL.ListeArticles;
+import SQL.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +6,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 public class Main {
 
+    /**
+     * Permet d'effacer le terminal (équivalent d'un CTRL + L)
+     */
     public static void effacerConsole(){
         // Effacer la console
         System.out.print("\033[H\033[2J");
@@ -39,6 +39,7 @@ public class Main {
                         Thread.sleep(1000);
                         System.out.print(" 1 seconde ...");
                         Thread.sleep(1000);
+                        Main.effacerConsole();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -62,7 +63,6 @@ public class Main {
                         Connection connection = DriverManager.getConnection(url, utilisateur, motDePasse);
                         System.out.println("\nConnexion réussie à la base de données Oracle!");
 
-
                         Thread.sleep(1000);
 
                         connecte = true;
@@ -75,7 +75,7 @@ public class Main {
                                             "3. Affichage des laboratoires de chaque chercheur\n" +
                                             "4. Chercheurs ayant annoté au moins «x» articles\n" +
                                             "5. Moyenne des notes données pour un chercheur\n" +
-                                            "6. Affichage pour chaque chercheur (nb articles publiés, nb et avg notes obtenues) par ordre décroissant (selon nb articles publiés)\n" +
+                                            "6. Affichage pour chaque chercheur d'un laboratoire donné (nb articles publiés, nb et avg notes obtenues) par ordre décroissant (selon nb articles publiés)\n" +
                                             "7. Vérification que la note maximale d'un article donné n'est pas attribué par un chercheur du même labo\n" +
                                             "8. Création et destruction de triggers (deux scripts, faire cette option pour plus d'informations)\n" +
                                             "404. Retour au menu de connexion\n" +
@@ -114,6 +114,7 @@ public class Main {
                                                 default:
                                                     System.out.println("Option invalide pour la recherche. Veuillez réessayer.");
                                             }
+                                            Main.effacerConsole();
 
                                             String res = l.rechercherArticlesParAuteur(choixRecherche, auteur);
                                             System.out.println(res);
@@ -128,8 +129,55 @@ public class Main {
                                             System.out.println("Option invalide. Veuillez réessayer.");
                                         }
                                     }
+                                    break;
                                 case 2:
-                                    // Traitement pour l'option 2
+                                    boolean question2 = true;
+                                    while(question2){
+                                        Main.effacerConsole();
+                                        System.out.println("Rechercher les co-auteurs d'un chercheur : ");
+                                        System.out.println("Voulez-vous rechercher (pour le chercheur) par rapport à : ");
+                                        System.out.println("1. Son nom\n2. Son email\n3. Retourner au menu principal");
+                                        int choixRecherche = scanner.nextInt();
+                                        scanner.nextLine(); // pour "consommer" la fin de ligne
+
+                                        if (choixRecherche == 3) {
+                                            question2 = false; // Quitter et retourner au menu principal
+                                        } else if (choixRecherche == 1 || choixRecherche == 2) {
+                                            // On prépare notre objet CoAuteur
+                                            CoAuteur c = new CoAuteur(connection);
+                                            // Correspondra soit à l'email soit au nom de l'auteur
+                                            String chercheur = "";
+                                            boolean nom = false;
+                                            switch (choixRecherche) {
+                                                case 1:
+                                                    // On demande à l'utilisateur le nom du chercheur
+                                                    System.out.print("Entrez le nom du chercheur : ");
+                                                    chercheur = scanner.nextLine();
+                                                    nom = true;
+                                                    break;
+                                                case 2:
+                                                    // Et ici son email (au chercheur)
+                                                    System.out.print("Entrez l'email du chercheur : ");
+                                                    chercheur = scanner.nextLine();
+                                                    break;
+                                                default:
+                                                    System.out.println("Option invalide pour la recherche. Veuillez réessayer.");
+                                            }
+                                            Main.effacerConsole();
+
+                                            String res = c.rechercherCoAuteurs(chercheur, nom);
+                                            System.out.println(res);
+
+                                            // Demander à l'utilisateur s'il souhaite effectuer une nouvelle recherche
+                                            System.out.println("Voulez-vous réitérer pour un autre chercheur ? (1. Oui / 2. Non)");
+                                            int choixNouvelleQ2 = scanner.nextInt();
+                                            if (choixNouvelleQ2 == 2) {
+                                                question2 = false; // Quitter et retourner au menu principal
+                                            }
+                                        }else {
+                                            System.out.println("Option invalide. Veuillez réessayer.");
+                                        }
+                                    }
                                     break;
                                 case 3:
                                     boolean question3 = true;
@@ -158,6 +206,8 @@ public class Main {
 
                                         ChercheurAnnoterArticles c = new ChercheurAnnoterArticles(connection);
                                         String res = c.rechercherChercheurs(x);
+
+                                        Main.effacerConsole();
 
                                         System.out.println(res);
 
@@ -210,8 +260,9 @@ public class Main {
                                                     chercheur = scanner.nextLine();
                                                     break;
                                                 default:
-                                                    System.out.println("KKKKKOption invalide pour la recherche. Veuillez réessayer.");
+                                                    System.out.println("Option invalide pour la recherche. Veuillez réessayer.");
                                             }
+                                            Main.effacerConsole();
 
                                             // On peut maintenant afficher le résultat du calcul de moyenne
                                             CalculMoyenne c = new CalculMoyenne(connection);
@@ -225,9 +276,66 @@ public class Main {
                                                 question5 = false; // Quitter et retourner au menu principal
                                             }
                                             }
-                                            
+
                                         } else {
                                             System.out.println("Option invalide. Veuillez réessayer.");
+                                        }
+                                    }
+                                    break;
+                                case 6:
+                                    boolean question6 = true;
+                                    // Consommer le caractère de fin de ligne laissé par la saisie précédente
+                                    scanner.nextLine();
+                                    while (question6) {
+                                        Main.effacerConsole();
+
+                                        System.out.println("Affichage pour chaque chercheur d'un laboratoire donné de :\n" +
+                                                "- nombre d'articles publiés\n" +
+                                                "- nombre de notes obtenues\n" +
+                                                "- moyenne des notes obtenues\n" +
+                                                "par ordre décroissant du nombre d'articles publiés");
+
+                                        System.out.print("Entrez le nom du laboratoire : ");
+                                        String nomLabo = scanner.nextLine(); // Lire le nom du laboratoire
+
+                                        Main.effacerConsole();
+
+                                        AffChercheurLabDonne a = new AffChercheurLabDonne(connection);
+                                        String res = a.afficherChercheursTries(nomLabo);
+                                        System.out.println(res);
+
+                                        // Demander à l'utilisateur s'il souhaite effectuer une nouvelle recherche
+                                        System.out.println("Voulez-vous réitérer pour un autre laboratoire ? (1. Oui / 2. Non)");
+                                        int choix = scanner.nextInt();
+                                        scanner.nextLine(); // Consommer la nouvelle ligne restante
+                                        if (choix == 2) {
+                                            question6 = false; // Quitter et retourner au menu principal
+                                        }
+                                    }
+                                    break;
+                                case 7:
+                                    boolean question7 = true;
+                                    // Consommer le caractère de fin de ligne laissé par la saisie précédente
+                                    scanner.nextLine();
+                                    while(question7){
+                                        Main.effacerConsole();
+
+                                        System.out.println("Vérification que la note maximale attribuée à un article n'a pas été attribuée par un chercheur appartenant au même laboratoire que l'un des auteurs de cet article");
+                                        System.out.print("Entrez le nom de l'article : ");
+                                        String nomArticle = scanner.nextLine(); // Lire le nom de l'article
+
+                                        Main.effacerConsole();
+
+                                        VerifierNoteMax v = new VerifierNoteMax(connection);
+                                        String res = v.verifierAttributionNoteMaximale(nomArticle);
+                                        System.out.println(res);
+
+                                        // Demander à l'utilisateur s'il souhaite effectuer une nouvelle recherche
+                                        System.out.println("Voulez-vous réitérer pour un autre article ? (1. Oui / 2. Non)");
+                                        int choi = scanner.nextInt();
+                                        scanner.nextLine(); // Consommer la nouvelle ligne restante
+                                        if (choi == 2) {
+                                            question7 = false; // Quitter et retourner au menu principal
                                         }
                                     }
                                     break;

@@ -7,8 +7,14 @@ import java.sql.*;
  */
 public class LabosChercheurs extends Base {
 
+    /**
+     * requête qui sera utilisée pour obtenir la liste des chercheurs de la base de données
+     */
     private String listeChercheurs;
 
+    /**
+     * requête qui sera utilisée pour avoir la liste des laboratoires d'un chercheur
+     */
     private String laboratoires;
 
     /**

@@ -363,10 +363,8 @@ INSERT INTO Annoter (EMAIL, TITRE, LIBELLE) VALUES
 INSERT INTO Annoter (EMAIL, TITRE, LIBELLE) VALUES
 ('lamport@microsoft.com', 'The TLA+ Proof System: Building a Heterogeneous Verification Platform', 'TLA');
 
--- NE FONCTIONNE PAS --
 INSERT INTO Annoter (EMAIL, TITRE, LIBELLE) VALUES
-('lynch@theory.csail.mit.edu', 'Generalized Universality', 'consencus');
--- NE FONCTIONNE PAS --
+('lynch@theory.csail.mit.edu', 'Generalized Universality', 'Consencus');
 
 INSERT INTO Annoter (EMAIL, TITRE, LIBELLE) VALUES
 ('lynch@theory.csail.mit.edu', 'Transactional Memory: Glimmer of a Theory', 'Concurrency');

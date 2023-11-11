@@ -9,9 +9,15 @@ import java.sql.SQLException;
  * Cette classe permet l'affichage de la liste des articles écrits par un auteur donné
  */
 public class ListeArticles extends Base{
-
+    /**
+     * requete qui sera utilisée plus tard pour avoir les articles écrits par un chercheur
+     */
     private String requete;
 
+    /**
+     * Construit un objet ListeArticles à partir d'une connection à une base de données et instancie la requete
+     * @param c
+     */
     public ListeArticles(Connection c){
         super(c);
 
@@ -54,7 +60,7 @@ public class ListeArticles extends Base{
                 while (resultSet.next()) {
                     titreArticle = resultSet.getString("titre");
                     typearticle = resultSet.getString("typearticle");
-                    res += "Titre : " + titreArticle + " Type : " + typearticle +"\n";
+                    res += "Titre : \"" + titreArticle + "\" Type : " + typearticle +"\n";
                 }
             }
 
