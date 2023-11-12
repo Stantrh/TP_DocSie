@@ -79,7 +79,7 @@ public class Main {
                                             "7. Vérification que la note maximale d'un article donné n'est pas attribué par un chercheur du même labo\n" +
                                             "8. Création et destruction de triggers (deux scripts, faire cette option pour plus d'informations)\n" +
                                             "404. Retour au menu de connexion\n" +
-                                            "Choisissez une option : ");
+                                            "\nChoisissez une option : ");
                             int choixMenu = scanner.nextInt();
                             switch (choixMenu) {
                                 case 1:
