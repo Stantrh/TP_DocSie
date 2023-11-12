@@ -1,7 +1,8 @@
 # [TP Final DocSie](/)
 
 
-## Concernant l'architecture de mon projet entièrement en JAVA, j'ai décidé de : 
+## Architecture de mon projet entièrement en JAVA : 
+J'ai décidé de : 
 - faire un menu interactif permettant de naviguer entre chaque fonctionnalité   
 - faire de chaque fonctionnalité une classe Java pour faciliter la compréhension du code et surtout le main de la classe principale (qui est déjà très volumineux)  
 
