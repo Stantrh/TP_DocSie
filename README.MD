@@ -25,9 +25,21 @@ On arrive sur le menu proposant les différentes fonctionnalités :
 ![image menuFonctionnalites](images/menuFonctionnalites.png)
 
 
+## Problèmes rencontrés : 
+J'ai cependant rencontré un problème lors de la programmation des triggers.
+Pour des raisons de cohérence, j'ai décidé de vérifier si le trigger existait avant d'essayer de le détruire/créer.
+J'avais déjà réussi à effectuer cette vérification sur une base de données oracle locale, mais je n'ai pas réussi sur la base de données troha2u
+En exécutant ces requêtes : 
+`sql SELECT * FROM ALL_OBJECTS WHERE OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`
+`sql SELECT STATUS FROM USER_TRIGGERS WHERE TRIGGER_NAME = 'verifierNoteChercheur';`
+`sql SELECT * FROM ALL_OBJECTS WHERE OWNER = 'troha2u' AND OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`
+On doit se voir retourner le trigger en question, mais même après les avoir bien créés et vérifier qu'ils marchent, rien ne m'est retourné.
 
 
 
 ### Packages utilisés :
 - J'ai utilisé la classe [Scanner](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html) du package [java.util](https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html) pour pouvoir rendre le menu interactif et permettre à l'utilisateur de renseigner des champs (comme les emails des chercheurs, l'option associée à la fonctionnalité choisie)  
-- J'ai utilisé le driver [JDBC oracle v11](https://download.oracle.com/otn-pub/otn_software/jdbc/233/ojdbc11.jar)
+- J'ai utilisé le driver [JDBC oracle v11](https://download.oracle.com/otn-pub/otn_software/jdbc/233/ojdbc11.jar) pour la relation entre mon code java et la base de données Oracle.
+
+
+
