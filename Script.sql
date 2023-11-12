@@ -427,4 +427,48 @@ VALUES ('lamport@microsoft.com', 'A User-centric Framework for Accessing Biologi
 INSERT INTO NOTER (Email, Titre, Note)
 VALUES ('lamport@microsoft.com', 'Automata and Logics for Words and Trees over an Infinite Alphabet', 4);
 
+
+
+-- Triggers :
+-- Trigger a)
+CREATE OR REPLACE TRIGGER verifierNoteChercheur
+BEFORE INSERT ON Noter
+FOR EACH ROW
+declare
+    v_coAuteur NUMBER;
+begin
+    -- Vérifier le nombre de co-auteurs pour l'article
+    select COUNT(email) INTO v_coAuteur
+    from Ecrire
+    where titre = :NEW.titre
+      and email = :NEW.email;
+
+    -- Si le count vaut + de 0, ça veut dire qu'il est co auteur
+    if v_coAuteur > 0 then
+        RAISE_APPLICATION_ERROR(-20023, 'Insertion imossible : Un chercheur auteur/co-auteur d''un article ne peut pas le noter.');
+    end if;
+END;
+
+
+-- Trigger b)
+CREATE TABLE log_chercheurs (
+    utilisateur VARCHAR2(500) NOT NULL,
+    date_action DATE NOT NULL,
+    type_action VARCHAR2(500) NOT NULL
+);
+CREATE OR REPLACE TRIGGER loggerDAnnotation
+AFTER INSERT OR UPDATE ON annoter
+FOR EACH ROW
+BEGIN
+    -- Enregistrer l'action dans la table log_chercheurs
+    IF INSERTING THEN
+        INSERT INTO log_chercheurs (utilisateur, date_action, type_action)
+        VALUES (USER, SYSDATE, 'Insertion dans la table annoter');
+    ELSIF UPDATING THEN
+        INSERT INTO log_chercheurs (utilisateur, date_action, type_action)
+        VALUES (USER, SYSDATE, 'Mise à jour dans la table annoter');
+    END IF;
+END;
+
+
 commit;
