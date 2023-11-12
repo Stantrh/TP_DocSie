@@ -34,9 +34,10 @@ En exécutant ces requêtes :
 `SELECT STATUS FROM USER_TRIGGERS WHERE TRIGGER_NAME = 'verifierNoteChercheur';`  
 `SELECT * FROM ALL_OBJECTS WHERE OWNER = 'troha2u' AND OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`  
 On doit se voir retourner le trigger en question, mais même après les avoir bien créés et vérifier qu'ils existent, rien ne m'est retourné.
-C'est pour cela que le code concernant les triggers fonctionne partiellement, même si leur création/déletion fonctionnent parfaitement.
+C'est pour cela que le code concernant les triggers fonctionne partiellement, même si leur création/déletion fonctionnent parfaitement.  
+Le requêtes permettant la création des triggers se trouve dans [Script.sql](Script.sql)  
 
-**Pour le premier trigger :** 
+**Pour le premier trigger :**  
 J'ai choisi de travailler avec l'exemple de l'article "A User-centric Framework for Accessing Biological Sources and Tools" écrit par :  
 ![Article User Centric...](images/userCentric.png)
 Voici un exemple pour le premier trigger concernant le fait qu'un chercheur ayant écrit un article ne puisse pas le noter :  
@@ -48,7 +49,7 @@ On essaye maintenant d'ajouter une note à un article donc le chercheur attribua
 ![succes insertion dans la table Noter](images/succesInsertion.png)  
 
 
-**Pour le deuxième trigger :**
+**Pour le deuxième trigger :**  
 Voici un exemple de son utilisation :  
 On effectue une action dans la table Annoter :  
 `insert into ANNOTER(email, titre, libelle) VALUES ('lynch@theory.csail.mit.edu', 'The TLA+ Proof System: Building a Heterogeneous Verification Platform', 'Concurrency');`
