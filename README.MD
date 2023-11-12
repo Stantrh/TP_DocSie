@@ -36,6 +36,8 @@ En exécutant ces requêtes :
 On doit se voir retourner le trigger en question, mais même après les avoir bien créés et vérifier qu'ils existent, rien ne m'est retourné.
 C'est pour cela que le code concernant les triggers fonctionne partiellement, même si leur création/déletion fonctionnent parfaitement.  
 Le requêtes permettant la création des triggers se trouve dans [Script.sql](Script.sql)  
+Je vous prie donc de regarder les triggers dans le Script.sql étant donné que leur fonctionnement via le menu reste instable...  
+
 
 **Pour le premier trigger :**  
 J'ai choisi de travailler avec l'exemple de l'article "A User-centric Framework for Accessing Biological Sources and Tools" écrit par :  
