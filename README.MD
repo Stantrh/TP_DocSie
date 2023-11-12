@@ -15,13 +15,13 @@ Puis d'exécuter cet enchaînement de commandes :
 Car si on lance le Main depuis le projet intelliJ, le rafraichissement de la console ne fonctionne pas, et c'est moins pratique de savoir à quelle étape on en est.
 
 Au lancement du programme on obtient : 
-[image menuConnexion](images/menuConnection.png)
+![image menuConnexion](images/menuConnection.png)
 
 On renseigne ses identifiants :
-[imageIdentifiants](images/identifiantsConnexion.png)
+![imageIdentifiants](images/identifiantsConnexion.png)
 
 On arrive sur le menu proposant les différentes fonctionnalités : 
-[image menuFonctionnalites](images/menuFonctionnalites.png)
+![image menuFonctionnalites](images/menuFonctionnalites.png)
 
 
 
