@@ -8,7 +8,7 @@ J'ai décidé de :
 
 
 Je l'ai réalisé sous IntelliJ Idea ULTIMATE  
-L'entièreté du projet est disponible, mais pour le lancer je recommande d'ouvrir un invité de commande dans src/  
+L'entièreté du projet est disponible, mais pour le lancer je recommande d'ouvrir un invité de commande dans [src/](/src)  
 Puis d'exécuter cet enchaînement de commandes :  
 `javac main.java && java -cp ../ojdbc11.jar;. Main`
 
@@ -28,5 +28,6 @@ On arrive sur le menu proposant les différentes fonctionnalités :
 
 
 
-Packages utilisés :
-J'ai utilisé la classe [Scanner](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html) du package [java.util](https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html) pour pouvoir rendre le menu interactif et permettre à l'utilisateur de renseigner des champs (comme les emails des chercheurs, l'option associée à la fonctionnalité choisie)  
+### Packages utilisés :
+- J'ai utilisé la classe [Scanner](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html) du package [java.util](https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html) pour pouvoir rendre le menu interactif et permettre à l'utilisateur de renseigner des champs (comme les emails des chercheurs, l'option associée à la fonctionnalité choisie)  
+- J'ai utilisé le driver [JDBC oracle v11](https://download.oracle.com/otn-pub/otn_software/jdbc/233/ojdbc11.jar)
