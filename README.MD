@@ -36,12 +36,21 @@ En exécutant ces requêtes :
 On doit se voir retourner le trigger en question, mais même après les avoir bien créés et vérifier qu'ils existent, rien ne m'est retourné.
 C'est pour cela que le code concernant les triggers fonctionne partiellement, même si leur création/déletion fonctionnent parfaitement.
 
+Pour le premier trigger :  
+J'ai choisi de travailler avec l'exemple de l'article "A User-centric Framework for Accessing Biological Sources and Tools" écrit par :  
+![Article User Centric...](images/userCentric.png)
 Voici un exemple pour le premier trigger concernant le fait qu'un chercheur ayant écrit un article ne puisse pas le noter :  
-- `insert into NOTER(email, titre, note) VALUES('chris@lri.fr' ,'A User-centric Framework for Accessing Biological Sources and Tools', 4);`
+- `insert into NOTER(email, titre, note) VALUES('chris@lri.fr' ,'A User-centric Framework for Accessing Biological Sources and Tools', 4);`  
 On essaye d'ajouter une note à un article co-écrit par chris@lri.fr avec son email, voici ce qui nous est retourné :  
-![erreur d'insertion dans la table Noter](images/erreurInsertionTrigger.png)
+![erreur d'insertion dans la table Noter](images/erreurInsertionTrigger.png)    
+- `insert into NOTER(email, titre, note) VALUES('lynch@theory.csail.mit.edu' ,'A User-centric Framework for Accessing Biological Sources and Tools', 4);`  
+On essaye maintenant d'ajouter une note à un article donc le chercheur attribuant la note n'est pas un co-auteur, on obtient pas d'erreur et cela fonctionne :  
+![succes insertion dans la table Noter](images/succesInsertion.png)  
 
 
+Pour le deuxième trigger :  
+J'ai décidé d'ajouter dans mon trigger la vérification que la table de log existe, comme ça je n'ai pas à le faire dans le code lors de la création du trigger.  
+Voici un exemple de son utilisation
 
 ### Packages utilisés :
 - J'ai utilisé la classe [Scanner](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html) du package [java.util](https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html) pour pouvoir rendre le menu interactif et permettre à l'utilisateur de renseigner des champs (comme les emails des chercheurs, l'option associée à la fonctionnalité choisie)  
