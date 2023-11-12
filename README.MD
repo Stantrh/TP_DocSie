@@ -29,11 +29,17 @@ On arrive sur le menu proposant les différentes fonctionnalités :
 J'ai cependant rencontré un problème lors de la programmation des triggers.
 Pour des raisons de cohérence, j'ai décidé de vérifier si le trigger existait avant d'essayer de le détruire/créer.
 J'avais déjà réussi à effectuer cette vérification sur une base de données oracle locale, mais je n'ai pas réussi sur la base de données troha2u
-En exécutant ces requêtes : 
-`sql SELECT * FROM ALL_OBJECTS WHERE OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`
-`sql SELECT STATUS FROM USER_TRIGGERS WHERE TRIGGER_NAME = 'verifierNoteChercheur';`
-`sql SELECT * FROM ALL_OBJECTS WHERE OWNER = 'troha2u' AND OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`
-On doit se voir retourner le trigger en question, mais même après les avoir bien créés et vérifier qu'ils marchent, rien ne m'est retourné.
+En exécutant ces requêtes :  
+`SELECT * FROM ALL_OBJECTS WHERE OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`  
+`SELECT STATUS FROM USER_TRIGGERS WHERE TRIGGER_NAME = 'verifierNoteChercheur';`  
+`SELECT * FROM ALL_OBJECTS WHERE OWNER = 'troha2u' AND OBJECT_NAME = 'verifierNoteChercheur' AND OBJECT_TYPE = 'TRIGGER';`  
+On doit se voir retourner le trigger en question, mais même après les avoir bien créés et vérifier qu'ils existent, rien ne m'est retourné.
+C'est pour cela que le code concernant les triggers fonctionne partiellement, même si leur création/déletion fonctionnent parfaitement.
+
+Voici un exemple pour le premier trigger concernant le fait qu'un chercheur ayant écrit un article ne puisse pas le noter :  
+- `insert into NOTER(email, titre, note) VALUES('chris@lri.fr' ,'A User-centric Framework for Accessing Biological Sources and Tools', 4);`
+On essaye d'ajouter une note à un article co-écrit par chris@lri.fr avec son email, voici ce qui nous est retourné :  
+![erreur d'insertion dans la table Noter](images/erreurInsertionTrigger.png)
 
 
 
