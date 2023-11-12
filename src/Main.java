@@ -339,6 +339,73 @@ public class Main {
                                         }
                                     }
                                     break;
+                                case 8:
+                                    boolean question8 = true;
+                                    // Consommer le caractère de fin de ligne laissé par la saisie précédente
+                                    scanner.nextLine();
+                                    while(question8){
+                                        Main.effacerConsole();
+
+                                        System.out.println("Création de triggers.");
+                                        System.out.println("1. Vérification lors de l'insertion d'une note\n2. Table log_chercheurs lors d'opérations dans Annoter\n3. Retourner au menu");
+                                        int choixTrigger = scanner.nextInt();
+                                        scanner.nextLine(); // pour "consommer" la fin de ligne
+                                        if (choixTrigger == 3) {
+                                            question8 = false;
+                                        }else if(choixTrigger == 1 || choixTrigger == 2){
+
+                                            Main.effacerConsole();
+                                            int creer = 0;
+                                            switch (choixTrigger) {
+                                                case 1:
+                                                    System.out.println("Vérification lors de l'insertion d'une note pour un article que celle-ci est\n" +
+                                                            "donnée par un chercheur qui n'est pas co-auteur de cet article.");
+                                                    System.out.println("Souhaitez vous : ");
+                                                    System.out.println("1.Créer le trigger\n2.Détruire le trigger");
+                                                    creer = scanner.nextInt();
+                                                    break;
+                                                case 2:
+                                                    System.out.println("Enregistrement dans une table log_chercheurs l'utilisateur, la date du\n" +
+                                                            "jour (date système) et le type de l'action effectuée lors de l'insertion et\n" +
+                                                            "mise-à-jour de la table annoter.");
+                                                    System.out.println("Souhaitez vous : ");
+                                                    System.out.println("1.Créer le trigger\n2.Détruire le trigger");
+                                                    creer = scanner.nextInt();
+                                                    break;
+                                                default:
+                                                    System.out.println("Option invalide pour les triggers. Veuillez réessayer.");
+                                            }
+                                            Main.effacerConsole();
+
+                                            String nomTrigger = "";
+                                            if(choixTrigger == 1)
+                                                nomTrigger = "verifierNoteChercheur";
+                                            if(choixTrigger == 2)
+                                                nomTrigger = "loggerDAnnotations";
+                                            // Selon le choix de l'utilisateur, on crée ou detruit le trigger
+                                            boolean create;
+                                            if(creer == 1)
+                                                create = true;
+                                            else
+                                                create = false;
+
+                                            Triggers t = new Triggers(connection);
+                                            String res = t.triggerCreer(create, nomTrigger);
+
+                                            System.out.println(res);
+
+                                            // Demander à l'utilisateur s'il souhaite effectuer une nouvelle recherche
+                                            System.out.println("Voulez-vous réitérer ? (1. Oui / 2. Non)");
+                                            int choixNouvRech = scanner.nextInt();
+                                            if (choixNouvRech == 2) {
+                                                question8 = false; // Quitter et retourner au menu principal
+                                            }
+                                        }
+                                        else {
+                                            System.out.println("Option invalide. Veuillez réessayer.");
+                                        }
+                                    }
+                                    break;
                                 case 404:
                                     connecte = false;
                                     break;
